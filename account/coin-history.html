@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ETH Transaction History</title>
+
+  <!-- Bootstrap & Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: #00ff88;
+      border-color: transparent;
+      border-bottom: 2px solid #00ff88;
+      background-color: transparent;
+    }
+
+    .nav-tabs .nav-link {
+      color: #bbb;
+    }
+
+    .transaction-item {
+      padding: 12px 0;
+    }
+
+    .eth-amount {
+      color: #00ff88;
+      font-weight: 600;
+    }
+
+    .date-title {
+      font-size: 14px;
+      margin-top: 24px;
+      color: #aaa;
+    }
+
+    .bottom-nav {
+      background: #000;
+      border-top: 1px solid #333;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .bottom-nav .nav-link {
+      color: #aaa;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .bottom-nav .active {
+      color: #00ff80;
+    }
+
+    .highlight {
+      color: #00ff88;
+      text-decoration: underline;
+    }
+
+    .icon-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 20px;
+    }
+    .bg-secondaryy{
+        background-color: rgba(203, 186, 186, 0.502);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-3">
+
+    <!-- Fixed Header & Tabs -->
+<div class="fixed-top bg-black border-bottom" style="z-index: 1030;">
+    <!-- Header -->
+    <div class="container d-flex align-items-center justify-content-between py-2">
+      <button class="btn btn-link text-white p-0">&#8592;</button>
+      <div>
+        <h5 class="mb-0"><small style="padding-left: 18px;">TRX</small></h5>
+        <small class="text-white"><small>COIN</small> | Tron</small>
+      </div>
+      <i class="bi bi-bell text-white"></i>
+    </div>
+  
+    <!-- Tabs -->
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link" href="#" onclick="window.location.href='./account/coin-page.html'">Holdings</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">History</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+      </ul>
+    </div>
+  </div>
+<br>
+<br>  
+    <!-- Transactions -->
+    <div class="transaction-history">
+
+      <!-- 19 Feb 2025 -->
+      <div class="date-title">19 Feb 2025</div>
+      <div class="transaction-item d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
+            <i class="bi bi-arrow-down"></i>
+          </div>
+          <div>
+            <div>
+              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
+            </div>
+            <div class="text-secondary small">From: 0x95D2F7f...99177f</div>
+          </div>
+        </div>
+        <div class="text-end">
+          <div class="eth-amount">+0,002359 ETH</div>
+          <div class="text-secondary small">≈ $5,74</div>
+        </div>
+      </div>
+
+      <!-- 5 Feb 2025 -->
+      <div class="date-title">5 Feb 2025</div>
+      <div class="transaction-item d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
+            <i class="bi bi-arrow-down"></i>
+          </div>
+          <div>
+            <div>
+              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
+            </div>
+            <div class="text-secondary small">From: 0x9696f59...f6976</div>
+          </div>
+        </div>
+        <div class="text-end">
+          <div class="eth-amount">+0,002126 ETH</div>
+          <div class="text-secondary small">≈ $5,17</div>
+        </div>
+      </div>
+
+      <div class="text-center my-2">
+        Cannot find your transaction? <a href="#" class="highlight">Check explorer</a>
+      </div>
+
+      <!-- 20 Jan 2025 -->
+      <div class="date-title">20 Jan 2025</div>
+
+      <!-- Sent Transaction -->
+      <div class="transaction-item d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
+            <i class="bi bi-arrow-up-right"></i>
+          </div>
+          <div>
+            <div>
+              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
+            </div>
+            <div class="text-secondary small">To: 0x7FD14a8...62b47d</div>
+          </div>
+        </div>
+        <div class="text-end text-danger">
+          <div class="fw-bold">-1,023749 ETH</div>
+          <div class="text-secondary small">≈ $2.491,89</div>
+        </div>
+      </div>
+
+      <!-- Incoming Transaction -->
+      <div class="transaction-item d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
+            <i class="bi bi-arrow-down"></i>
+          </div>
+          <div>
+            <div>
+              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
+            </div>
+            <div class="text-secondary small">From: 0xcEBcbaD...ca14BD</div>
+          </div>
+        </div>
+        <div class="text-end">
+          <div class="eth-amount">+0,5125 ETH</div>
+          <div class="text-secondary small">≈ $1.247,46</div>
+        </div>
+      </div>
+
+      <!-- 19 Jan 2025 -->
+      <div class="date-title">19 Jan 2025</div>
+      <div class="transaction-item d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
+            <i class="bi bi-arrow-down"></i>
+          </div>
+          <div>
+            <div>
+              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
+            </div>
+            <div class="text-secondary small">From: 0xcEBcbaD...ca14BD</div>
+          </div>
+        </div>
+        <div class="text-end">
+          <div class="eth-amount">+0,51 ETH</div>
+          <div class="text-secondary small">≈ $1.241,38</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer Navigation -->
+  <nav class="bottom-nav d-flex justify-content-around p-2">
+    <a href="#" class="nav-link"><i class="bi bi-upload"></i><br>Send</a>
+    <a href="#" class="nav-link"><i class="bi bi-download"></i><br>Receive</a>
+    <a href="#" class="nav-link"><i class="bi bi-arrow-left-right"></i><br>Swap</a>
+    <a href="#" class="nav-link active"><i class="bi bi-lightning-fill"></i><br>Buy</a>
+    <a href="#" class="nav-link"><i class="bi bi-bank"></i><br>Sell</a>
+  </nav>
+
+</body>
+</html>

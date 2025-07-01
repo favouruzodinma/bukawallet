@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TRX Wallet</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      *{
+        text-decoration: none !important;
+      }
+      body {
+        background-color: #0B0E11;
+        color: #fff;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .nav-tabs .nav-link.active {
+        border-bottom: 3px solid #00ff80;
+        color: #fff;
+        background: transparent;
+      }
+
+      .coin-card {
+        background-color: #222;
+        border-radius: 12px;
+        padding: 15px;
+      }
+
+      .promo-card {
+        background-color: #191919;
+        border: 1px solid #ffd700;
+        border-radius: 12px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+      }
+
+      .promo-card img {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+      }
+
+      .badge-box {
+        background: #222;
+        border-radius: 12px;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .bottom-nav {
+        background: #000;
+        border-top: 1px solid #333;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .bottom-nav .nav-link {
+        color: #aaa;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .bottom-nav .active {
+        color: #00ff80;
+      }
+      
+      
+    </style>
+  </head>
+  <body >
+    <div class="container-fluid p-3">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <button class="btn btn-link text-white" onclick="window.location.href='dashboard.html'">&#8592;</button>
+        <div>
+          <h5 class="mb-0"><small style="padding-left: 18px">TRX</small></h5>
+          <small class="text-white"> <small>COIN</small> | Tron</small>
+        </div>
+        <i class="bi bi-bell text-white"></i>
+      </div>
+
+      <ul class="nav nav-tabs mb-3" id="trxTabs" >
+        <li class="nav-item">
+          <a class="nav-link active text-white" href="#" style="border-top: none !important; border-left: none; border-right: none;">Holdings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="javascript:void(0)" onclick="window.location.href='./coin-history.html'" style="border-top: none !important; border-left: none; border-right: none;">History</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#" style="border-top: none !important; border-left: none; border-right: none;">About</a>
+        </li>
+      </ul>
+
+      <h6 class="text-white">My Balance</h6>
+
+      <div class="coin-card mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <img
+              src="https://www.cryptologos.cc/logos/tron-trx-logo.png?v=026"
+              alt="TRX"
+              style="width: 30px; margin-right: 10px"
+            />
+            <div>
+              <strong>Tron</strong><br />
+              <small>183,900004 TRX</small>
+            </div>
+          </div>
+          <div class="text-end">
+            <strong>$50.74</strong><br />
+            <small class="text-success">+$0.37</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="promo-card mb-3">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/2590/2590246.png"
+          alt="Promo"
+        />
+        <div>
+          <p class="mb-0 text-white">Earn yield on your TRX today</p>
+          <a href="#" class="text-success fw-bold">Stake now</a>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between mb-3">
+        <!-- Energy -->
+        <div class="badge-box flex-fill me-2 d-flex justify-content-between align-items-center text-white">
+          <div>
+            <div class="small">Energy</div>
+            <div class="fw-bold text-start">0</div>
+          </div>
+          <div class="d-flex align-items-center justify-content-center rounded-circle border border-white"
+               style="width: 30px; height: 30px;">
+            <i class="bi bi-rocket-takeoff-fill"></i>
+          </div>
+        </div>
+      
+        <!-- Bandwidth -->
+        <div class="badge-box flex-fill d-flex justify-content-between align-items-center text-white">
+          <div>
+            <div class="small">Bandwidth</div>
+            <div class="fw-bold text-start">600</div>
+          </div>
+          <div class="d-flex align-items-center justify-content-center rounded-circle border border-white"
+               style="width: 30px; height: 30px;">
+            <i class="bi bi-car-front-fill"></i>
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- Collapsible Balance Section -->
+      <div class="mb-3">
+        <style>
+          .hide {
+            display: none !important;
+          }
+        </style>
+      
+        <!-- Balance Section -->
+        <div class="d-flex justify-content-between align-items-center" id="balanceSection">
+          <div class="text-white small">Available</div>
+          <div class="fw-bold">183,900004 TRX</div>
+        </div>
+      
+        <!-- Toggle Button -->
+        <a href="#" 
+           class="text-success fw-bold d-block mt-2" 
+           id="toggleBalanceBtn" >
+          Hide balances &#9650;
+        </a>
+      </div>
+      
+      <script>
+        const toggleBtn = document.getElementById("toggleBalanceBtn");
+        const balanceSection = document.getElementById("balanceSection");
+      
+        toggleBtn.addEventListener("click", function (e) {
+          e.preventDefault(); // Prevent link from jumping
+      
+          // Toggle the .hide class
+          if (balanceSection.classList.contains("hide")) {
+            balanceSection.classList.remove("hide");
+            toggleBtn.innerHTML = "Hide balances &#9650;";
+          } else {
+            balanceSection.classList.add("hide");
+            toggleBtn.innerHTML = "Show balances &#9660;";
+          }
+        });
+      </script>
+      
+    </div>
+
+    <nav class="bottom-nav d-flex justify-content-around p-2">
+      <a href="javascript:void(0)" onclick="window.location.href='send.html'" class="nav-link"><i class="bi bi-upload"></i><br />Send</a>
+      <a href="#" class="nav-link"
+        ><i class="bi bi-download"></i><br />Receive</a
+      >
+      <a href="#" class="nav-link"
+        ><i class="bi bi-arrow-left-right"></i><br />Swap</a
+      >
+      <a href="#" class="nav-link active"
+        ><i class="bi bi-lightning-fill"></i><br />Buy</a
+      >
+      <a href="#" class="nav-link"><i class="bi bi-bank"></i><br />Sell</a>
+    </nav>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+  </body>
+</html>

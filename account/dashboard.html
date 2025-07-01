@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust Wallet Clone</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles/dashboard.css">
+   
+</head>
+<body>
+    <div class="wallet-container">
+        <!-- Header -->
+        <div class="wallet-header">
+            <div class="wallet-title">BukaWallet</div>
+            <div class="wallet-actions">
+                <button class="btn"><i class="fas fa-qrcode"></i></button>
+                <button class="btn"><i class="fas fa-cog"></i></button>
+            </div>
+        </div>
+        
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-title">
+                Total Balance
+                <i class="fas fa-eye-slash ms-2"></i>
+            </div>
+            <div class="balance-amount">$12,849.42</div>
+            <div class="balance-change positive">
+                <i class="fas fa-caret-up"></i> $428.56 (3.45%) today
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>Send</span>
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-arrow-down"></i>
+                    <span>Receive</span>
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Swap</span>
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Buy</span>
+                </button>
+            </div>
+        </div>
+        <div class="container mb-2 pb-3">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div id="myCarousel" class="carousel slide" data-bs-ride="false" data-bs-touch="true">
+                        <div class="carousel-inner">
+                            <!-- Slide 1 -->
+                            <div class="carousel-item active">
+                                <div class="carousel-container" style="background: linear-gradient(135deg, #0B0E11, #151A21 );">
+                                    <img src="./Screenshot 2025-06-06 at 11.53.36 AM.png" alt="Token" class="carousel-img">
+                                    <div class="carousel-content">
+                                        <div class="carousel-subtitle">Search from Explore t<br>new tokens faster</div>
+                                    </div>
+                                    <button class="close-btn" data-slide-index="0">×</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 2 (example) -->
+                            <div class="carousel-item">
+                                <div class="carousel-container" style="background: linear-gradient(135deg, #0B0E11, #151A21 );">
+                                    <img src="https://via.placeholder.com/60/4facfe/00f2fe" alt="Opportunity" class="carousel-img">
+                                    <div class="carousel-content">
+                                        <div class="carousel-subtitle">Find exciting opportunities<br>and grow your portfolio</div>
+                                    </div>
+                                    <button class="close-btn" data-slide-index="1">×</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Slide 3 (example) -->
+                            <div class="carousel-item">
+                                <div class="carousel-container" style="background: linear-gradient(135deg, #0B0E11, #151A21);">
+                                    <img src="https://via.placeholder.com/60/f093fb/f5576c" alt="Deal" class="carousel-img">
+                                    <div class="carousel-content">
+                                        <div class="carousel-subtitle">Limited time deals<br>for premium users</div>
+                                    </div>
+                                    <button class="close-btn" data-slide-index="2">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Controls (hidden on mobile) -->
+                        <button class="carousel-control-prev d-none d-md-block" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next d-none d-md-block" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        
+                        <!-- Dot indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Assets Section -->
+        <div class="assets-section">
+            <div class="section-header">
+                <div class="section-title">Your Assets</div>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            
+            <!-- Asset List -->
+            <div class="asset-list">
+                <!-- BTC Asset -->
+                <div class="asset-card" onclick="window.location.href='./coin-page.html'">
+                    <div class="asset-icon btc-color">
+                        <i class="fab fa-btc"></i>
+                    </div>
+                    <div class="asset-info">
+                        <div class="asset-name">
+                            Bitcoin
+                            <span class="asset-symbol">BTC</span>
+                        </div>
+                        <div class="asset-amount">0.2546 BTC</div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="asset-price">$9,842.56</div>
+                        <div class="asset-change positive"><i class="fas fa-caret-up"></i> 5.2%</div>
+                    </div>
+                </div>
+                
+                <!-- ETH Asset -->
+                <div class="asset-card">
+                    <div class="asset-icon eth-color">
+                        <i class="fab fa-ethereum"></i>
+                    </div>
+                    <div class="asset-info">
+                        <div class="asset-name">
+                            Ethereum
+                            <span class="asset-symbol">ETH</span>
+                        </div>
+                        <div class="asset-amount">3.42 ETH</div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="asset-price">$6,128.74</div>
+                        <div class="asset-change positive"><i class="fas fa-caret-up"></i> 2.8%</div>
+                    </div>
+                </div>
+                
+                <!-- BNB Asset -->
+                <div class="asset-card">
+                    <div class="asset-icon bnb-color">
+                        <i class="fab fa-btc"></i>
+                    </div>
+                    <div class="asset-info">
+                        <div class="asset-name">
+                            Binance Coin
+                            <span class="asset-symbol">BNB</span>
+                        </div>
+                        <div class="asset-amount">12.5 BNB</div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="asset-price">$3,875.20</div>
+                        <div class="asset-change negative"><i class="fas fa-caret-down"></i> 1.2%</div>
+                    </div>
+                </div>
+                
+                <!-- USDT Asset -->
+                <div class="asset-card">
+                    <div class="asset-icon usdt-color">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="asset-info">
+                        <div class="asset-name">
+                            Tether
+                            <span class="asset-symbol">USDT</span>
+                        </div>
+                        <div class="asset-amount">1,250 USDT</div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="asset-price">$1,250.00</div>
+                        <div class="asset-change">0.0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- NFT Section -->
+        <div class="assets-section mt-4">
+            <div class="section-header">
+                <div class="section-title">NFT Collections</div>
+                <a href="#" class="view-all">View All</a>
+            </div>
+            
+            <div class="d-flex overflow-auto pb-2" style="gap: 12px;">
+                <div class="nft-card" style="min-width: 120px;">
+                    <div class="nft-image rounded-3" style="width: 120px; height: 120px; background-color: var(--light-gray);"></div>
+                    <div class="nft-name mt-2 text-center" style="font-size: 0.75rem;">Bored Ape</div>
+                </div>
+                <div class="nft-card" style="min-width: 120px;">
+                    <div class="nft-image rounded-3" style="width: 120px; height: 120px; background-color: var(--light-gray);"></div>
+                    <div class="nft-name mt-2 text-center" style="font-size: 0.75rem;">CryptoPunk</div>
+                </div>
+                <div class="nft-card" style="min-width: 120px;">
+                    <div class="nft-image rounded-3" style="width: 120px; height: 120px; background-color: var(--light-gray);"></div>
+                    <div class="nft-name mt-2 text-center" style="font-size: 0.75rem;">Azuki</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="container">
+            <div class="d-flex">
+                <div class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-wallet"></i>
+                        <span>Wallet</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Markets</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-compass"></i>
+                        <span>Browser</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-bell"></i>
+                        <span>Activity</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize carousel without auto-cycling
+            const myCarousel = new bootstrap.Carousel('#myCarousel', {
+                interval: false, // Disable auto-cycling
+                wrap: true,
+                touch: true // Enable touch swiping
+            });
+            
+            // Add functionality to close buttons
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const slideIndex = this.getAttribute('data-slide-index');
+                    const carouselItems = document.querySelectorAll('.carousel-item');
+                    const indicators = document.querySelectorAll('.carousel-indicators li');
+                    
+                    // Hide the current slide
+                    carouselItems[slideIndex].style.display = 'none';
+                    indicators[slideIndex].style.display = 'none';
+                    
+                    // Find the next available slide to show
+                    let nextIndex = (parseInt(slideIndex) + 1) % carouselItems.length;
+                    while (nextIndex != slideIndex && carouselItems[nextIndex].style.display === 'none') {
+                        nextIndex = (nextIndex + 1) % carouselItems.length;
+                    }
+                    
+                    // If all slides are hidden, hide the carousel
+                    if (carouselItems[nextIndex].style.display === 'none') {
+                        document.getElementById('myCarousel').style.display = 'none';
+                    } else {
+                        // Show the next available slide
+                        myCarousel.to(nextIndex);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
