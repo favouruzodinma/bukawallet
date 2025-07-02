@@ -9,30 +9,48 @@
       rel="stylesheet"
     />
     <style>
+      :root {
+        --primary: #3375BB;
+        --secondary: #05C0A5;
+        --primary-dark: #06C0A5;
+        --dark: #121212;
+        --darker: #0a0a0a;
+        --light: #f5f6fa;
+        --gray: #2d2d2d;
+        --light-gray: #3d3d3d;
+        --success: #00b894;
+      }
+      
       *{
         text-decoration: none !important;
       }
       body {
-        background-color: #0B0E11;
-        color: #fff;
+        background-color: var(--darker);
+        color: var(--light);
         font-family: "Segoe UI", sans-serif;
       }
 
+      .nav-tabs .nav-link {
+        color: var(--light);
+        border: none;
+      }
+
       .nav-tabs .nav-link.active {
-        border-bottom: 3px solid #00ff80;
-        color: #fff;
+        border-bottom: 3px solid var(--secondary);
+        color: var(--light);
         background: transparent;
       }
 
       .coin-card {
-        background-color: #222;
+        background-color: var(--gray);
         border-radius: 12px;
         padding: 15px;
+        border: 1px solid var(--light-gray);
       }
 
       .promo-card {
-        background-color: #191919;
-        border: 1px solid #ffd700;
+        background-color: var(--gray);
+        border: 1px solid var(--secondary);
         border-radius: 12px;
         padding: 15px;
         display: flex;
@@ -46,57 +64,78 @@
       }
 
       .badge-box {
-        background: #222;
+        background: var(--gray);
         border-radius: 12px;
         padding: 10px;
         text-align: center;
+        border: 1px solid var(--light-gray);
       }
 
       .bottom-nav {
-        background: #000;
-        border-top: 1px solid #333;
+        background: var(--dark);
+        border-top: 1px solid var(--light-gray);
         position: fixed;
         bottom: 0;
         width: 100%;
       }
 
       .bottom-nav .nav-link {
-        color: #aaa;
+        color: var(--light-gray);
         font-size: 14px;
         text-align: center;
       }
 
       .bottom-nav .active {
-        color: #00ff80;
+        color: var(--secondary);
       }
       
+      .text-success {
+        color: var(--secondary) !important;
+      }
       
+      .btn-link {
+        color: var(--light);
+      }
+      
+      .btn-link:hover {
+        color: var(--secondary);
+      }
+      
+      .rounded-circle {
+        border-color: var(--secondary) !important;
+        color: var(--secondary);
+      }
+      
+      /* Collapsible Balance Section */
+      .hide {
+        display: none !important;
+      }
     </style>
   </head>
   <body >
     <div class="container-fluid p-3">
       <div class="d-flex align-items-center justify-content-between mb-2">
-        <button class="btn btn-link text-white" onclick="window.location.href='dashboard.html'">&#8592;</button>
+        <button class="btn btn-link" onclick="window.location.href='dashboard.html'">&#8592;</button>
         <div>
           <h5 class="mb-0"><small style="padding-left: 18px">TRX</small></h5>
-          <small class="text-white"> <small>COIN</small> | Tron</small>
+          <small> <small>COIN</small> | Tron</small>
         </div>
-        <i class="bi bi-bell text-white"></i>
+        <i class="bi bi-bell"></i>
       </div>
 
       <ul class="nav nav-tabs mb-3" id="trxTabs" >
         <li class="nav-item">
-          <a class="nav-link active text-white" href="#" style="border-top: none !important; border-left: none; border-right: none;">Holdings</a>
+          <a class="nav-link active" href="#" style="border-top: none !important; border-left: none; border-right: none;">Holdings</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="javascript:void(0)" onclick="window.location.href='./coin-history.html'" style="border-top: none !important; border-left: none; border-right: none;">History</a>
+          <a class="nav-link" href="javascript:void(0)" onclick="window.location.href='./coin-history.html'" style="border-top: none !important; border-left: none; border-right: none;">History</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#" style="border-top: none !important; border-left: none; border-right: none;">About</a>
+          <a class="nav-link" href="#" style="border-top: none !important; border-left: none; border-right: none;">About</a>
         </li>
       </ul>
 
-      <h6 class="text-white">My Balance</h6>
+      <h6>My Balance</h6>
 
       <div class="coin-card mb-3">
         <div class="d-flex justify-content-between align-items-center">
@@ -124,31 +163,31 @@
           alt="Promo"
         />
         <div>
-          <p class="mb-0 text-white">Earn yield on your TRX today</p>
+          <p class="mb-0">Earn yield on your TRX today</p>
           <a href="#" class="text-success fw-bold">Stake now</a>
         </div>
       </div>
 
       <div class="d-flex justify-content-between mb-3">
         <!-- Energy -->
-        <div class="badge-box flex-fill me-2 d-flex justify-content-between align-items-center text-white">
+        <div class="badge-box flex-fill me-2 d-flex justify-content-between align-items-center">
           <div>
             <div class="small">Energy</div>
             <div class="fw-bold text-start">0</div>
           </div>
-          <div class="d-flex align-items-center justify-content-center rounded-circle border border-white"
+          <div class="d-flex align-items-center justify-content-center rounded-circle border"
                style="width: 30px; height: 30px;">
             <i class="bi bi-rocket-takeoff-fill"></i>
           </div>
         </div>
       
         <!-- Bandwidth -->
-        <div class="badge-box flex-fill d-flex justify-content-between align-items-center text-white">
+        <div class="badge-box flex-fill d-flex justify-content-between align-items-center">
           <div>
             <div class="small">Bandwidth</div>
             <div class="fw-bold text-start">600</div>
           </div>
-          <div class="d-flex align-items-center justify-content-center rounded-circle border border-white"
+          <div class="d-flex align-items-center justify-content-center rounded-circle border"
                style="width: 30px; height: 30px;">
             <i class="bi bi-car-front-fill"></i>
           </div>
@@ -158,15 +197,9 @@
 
       <!-- Collapsible Balance Section -->
       <div class="mb-3">
-        <style>
-          .hide {
-            display: none !important;
-          }
-        </style>
-      
         <!-- Balance Section -->
         <div class="d-flex justify-content-between align-items-center" id="balanceSection">
-          <div class="text-white small">Available</div>
+          <div class="small">Available</div>
           <div class="fw-bold">183,900004 TRX</div>
         </div>
       
@@ -199,9 +232,9 @@
     </div>
 
     <nav class="bottom-nav d-flex justify-content-around p-2">
-      <a href="javascript:void(0)" onclick="window.location.href='send.html'" class="nav-link"><i class="bi bi-upload"></i><br />Send</a>
+      <a href="javascript:void(0)" onclick="window.location.href='send-assets.html'" class="nav-link"><i class="bi bi-upload"></i><br />Send</a>
       <a href="#" class="nav-link"
-        ><i class="bi bi-download"></i><br />Receive</a
+        ><i class="bi bi-download" onclick="window.location.href='receive-asset.html'"></i><br />Receive</a
       >
       <a href="#" class="nav-link"
         ><i class="bi bi-arrow-left-right"></i><br />Swap</a

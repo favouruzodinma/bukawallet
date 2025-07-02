@@ -10,216 +10,342 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
   <style>
+    :root {
+      --primary: #3375BB;
+      --secondary: #05C0A5;
+      --primary-dark: #06C0A5;
+      --dark: #121212;
+      --darker: #0a0a0a;
+      --light: #f5f6fa;
+      --gray: #2d2d2d;
+      --light-gray: #3d3d3d;
+      --success: #00b894;
+      --danger: #e17055;
+    }
+    
     body {
-      background-color: #111;
-      color: #fff;
-      font-family: "Segoe UI", sans-serif;
+      background-color: var(--darker);
+      color: var(--light);
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      padding-bottom: 70px; /* Space for bottom nav */
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      background-color: var(--dark);
+      z-index: 1000;
+      border-bottom: 1px solid var(--light-gray);
+      padding: 15px 0;
+    }
+
+    .nav-tabs {
+      border-bottom: none;
     }
 
     .nav-tabs .nav-link.active {
-      color: #00ff88;
-      border-color: transparent;
-      border-bottom: 2px solid #00ff88;
+      color: var(--secondary);
+      border: none;
+      border-bottom: 2px solid var(--secondary);
       background-color: transparent;
+      font-weight: 500;
     }
 
     .nav-tabs .nav-link {
-      color: #bbb;
+      color: var(--light-gray);
+      border: none;
+      padding: 10px 15px;
+      font-size: 0.9rem;
     }
 
     .transaction-item {
-      padding: 12px 0;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .transaction-item:last-child {
+      border-bottom: none;
     }
 
     .eth-amount {
-      color: #00ff88;
+      color: var(--secondary);
       font-weight: 600;
     }
 
     .date-title {
-      font-size: 14px;
-      margin-top: 24px;
-      color: #aaa;
+      font-size: 0.8rem;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: var(--light-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .bottom-nav {
-      background: #000;
-      border-top: 1px solid #333;
+      background: var(--dark);
+      border-top: 1px solid var(--light-gray);
       position: fixed;
       bottom: 0;
       width: 100%;
+      padding: 10px 0;
     }
 
     .bottom-nav .nav-link {
-      color: #aaa;
-      font-size: 14px;
+      color: var(--light-gray);
+      font-size: 0.75rem;
       text-align: center;
+      padding: 5px 0;
     }
 
     .bottom-nav .active {
-      color: #00ff80;
+      color: var(--secondary);
     }
 
     .highlight {
-      color: #00ff88;
-      text-decoration: underline;
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 500;
     }
 
     .icon-circle {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       border-radius: 20px;
+      background-color: rgba(5, 192, 165, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
     }
-    .bg-secondaryy{
-        background-color: rgba(203, 186, 186, 0.502);
+    
+    .icon-circle.receive {
+      color: var(--secondary);
+    }
+    
+    .icon-circle.send {
+      color: var(--danger);
+      background-color: rgba(225, 112, 85, 0.1);
+    }
+    
+    .transaction-details {
+      flex: 1;
+    }
+    
+    .transaction-status {
+      font-size: 0.75rem;
+      color: var(--secondary);
+      display: inline-flex;
+      align-items: center;
+      margin-left: 5px;
+    }
+    
+    .transaction-address {
+      font-size: 0.8rem;
+      color: var(--light-gray);
+      margin-top: 3px;
+    }
+    
+    .transaction-value {
+      text-align: right;
+    }
+    
+    .transaction-usd {
+      font-size: 0.8rem;
+      color: var(--light-gray);
+      margin-top: 3px;
+    }
+    
+    .explorer-link {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 0.85rem;
+    }
+    
+    .btn-link {
+      color: var(--light);
+      padding: 0;
+    }
+    
+    .btn-link:hover {
+      color: var(--secondary);
+    }
+    
+    .header-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .header-subtitle {
+      font-size: 0.75rem;
+      color: var(--light-gray);
     }
   </style>
 </head>
 <body>
 
-  <div class="container py-3">
-
-    <!-- Fixed Header & Tabs -->
-<div class="fixed-top bg-black border-bottom" style="z-index: 1030;">
-    <!-- Header -->
-    <div class="container d-flex align-items-center justify-content-between py-2">
-      <button class="btn btn-link text-white p-0">&#8592;</button>
-      <div>
-        <h5 class="mb-0"><small style="padding-left: 18px;">TRX</small></h5>
-        <small class="text-white"><small>COIN</small> | Tron</small>
-      </div>
-      <i class="bi bi-bell text-white"></i>
-    </div>
-  
-    <!-- Tabs -->
+  <!-- App Header -->
+  <div class="app-header">
     <div class="container">
-      <ul class="nav nav-tabs">
-        <li class="nav-item"><a class="nav-link" href="#" onclick="window.location.href='./account/coin-page.html'">Holdings</a></li>
-        <li class="nav-item"><a class="nav-link active" href="#">History</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+      <div class="d-flex align-items-center justify-content-between">
+        <button class="btn btn-link" onclick="window.history.back()">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+        <div class="text-center">
+          <div class="header-title">TRX</div>
+          <div class="header-subtitle">COIN | Tron</div>
+        </div>
+        <div>
+          <i class="bi bi-bell"></i>
+        </div>
+      </div>
+      
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mt-3">
+        <li class="nav-item">
+          <a class="nav-link" href="#" onclick="window.location.href='./coin-page.html'">Holdings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">History</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
       </ul>
     </div>
   </div>
-<br>
-<br>  
-    <!-- Transactions -->
-    <div class="transaction-history">
 
-      <!-- 19 Feb 2025 -->
-      <div class="date-title">19 Feb 2025</div>
-      <div class="transaction-item d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
-            <i class="bi bi-arrow-down"></i>
-          </div>
+  <!-- Transaction History -->
+  <div class="container mt-3">
+
+    <!-- 19 Feb 2025 -->
+    <div class="date-title">19 Feb 2025</div>
+    <div class="transaction-item d-flex justify-content-between align-items-start">
+      <div class="d-flex align-items-start">
+        <div class="icon-circle receive">
+          <i class="bi bi-arrow-down"></i>
+        </div>
+        <div class="transaction-details">
           <div>
-            <div>
-              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
-            </div>
-            <div class="text-secondary small">From: 0x95D2F7f...99177f</div>
+            Transfer <span class="transaction-status"><i class="bi bi-check-circle-fill"></i></span>
           </div>
-        </div>
-        <div class="text-end">
-          <div class="eth-amount">+0,002359 ETH</div>
-          <div class="text-secondary small">≈ $5,74</div>
+          <div class="transaction-address">From: 0x95D2F7f...99177f</div>
         </div>
       </div>
-
-      <!-- 5 Feb 2025 -->
-      <div class="date-title">5 Feb 2025</div>
-      <div class="transaction-item d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
-            <i class="bi bi-arrow-down"></i>
-          </div>
-          <div>
-            <div>
-              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
-            </div>
-            <div class="text-secondary small">From: 0x9696f59...f6976</div>
-          </div>
-        </div>
-        <div class="text-end">
-          <div class="eth-amount">+0,002126 ETH</div>
-          <div class="text-secondary small">≈ $5,17</div>
-        </div>
+      <div class="transaction-value">
+        <div class="eth-amount">+0,002359 ETH</div>
+        <div class="transaction-usd">≈ $5,74</div>
       </div>
-
-      <div class="text-center my-2">
-        Cannot find your transaction? <a href="#" class="highlight">Check explorer</a>
-      </div>
-
-      <!-- 20 Jan 2025 -->
-      <div class="date-title">20 Jan 2025</div>
-
-      <!-- Sent Transaction -->
-      <div class="transaction-item d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
-            <i class="bi bi-arrow-up-right"></i>
-          </div>
-          <div>
-            <div>
-              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
-            </div>
-            <div class="text-secondary small">To: 0x7FD14a8...62b47d</div>
-          </div>
-        </div>
-        <div class="text-end text-danger">
-          <div class="fw-bold">-1,023749 ETH</div>
-          <div class="text-secondary small">≈ $2.491,89</div>
-        </div>
-      </div>
-
-      <!-- Incoming Transaction -->
-      <div class="transaction-item d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
-            <i class="bi bi-arrow-down"></i>
-          </div>
-          <div>
-            <div>
-              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
-            </div>
-            <div class="text-secondary small">From: 0xcEBcbaD...ca14BD</div>
-          </div>
-        </div>
-        <div class="text-end">
-          <div class="eth-amount">+0,5125 ETH</div>
-          <div class="text-secondary small">≈ $1.247,46</div>
-        </div>
-      </div>
-
-      <!-- 19 Jan 2025 -->
-      <div class="date-title">19 Jan 2025</div>
-      <div class="transaction-item d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-          <div class="me-2 d-flex justify-content-center align-items-center bg-secondaryy text-white icon-circle">
-            <i class="bi bi-arrow-down"></i>
-          </div>
-          <div>
-            <div>
-              Transfer <span style="font-size: 12px;"><i class="bi bi-check-circle-fill text-success"></i></span>
-            </div>
-            <div class="text-secondary small">From: 0xcEBcbaD...ca14BD</div>
-          </div>
-        </div>
-        <div class="text-end">
-          <div class="eth-amount">+0,51 ETH</div>
-          <div class="text-secondary small">≈ $1.241,38</div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- 5 Feb 2025 -->
+    <div class="date-title">5 Feb 2025</div>
+    <div class="transaction-item d-flex justify-content-between align-items-start">
+      <div class="d-flex align-items-start">
+        <div class="icon-circle receive">
+          <i class="bi bi-arrow-down"></i>
+        </div>
+        <div class="transaction-details">
+          <div>
+            Transfer <span class="transaction-status"><i class="bi bi-check-circle-fill"></i></span>
+          </div>
+          <div class="transaction-address">From: 0x9696f59...f6976</div>
+        </div>
+      </div>
+      <div class="transaction-value">
+        <div class="eth-amount">+0,002126 ETH</div>
+        <div class="transaction-usd">≈ $5,17</div>
+      </div>
+    </div>
+
+    <div class="explorer-link">
+      Cannot find your transaction? <a href="#" class="highlight">Check explorer</a>
+    </div>
+
+    <!-- 20 Jan 2025 -->
+    <div class="date-title">20 Jan 2025</div>
+
+    <!-- Sent Transaction -->
+    <div class="transaction-item d-flex justify-content-between align-items-start">
+      <div class="d-flex align-items-start">
+        <div class="icon-circle send">
+          <i class="bi bi-arrow-up-right"></i>
+        </div>
+        <div class="transaction-details">
+          <div>
+            Transfer <span class="transaction-status"><i class="bi bi-check-circle-fill"></i></span>
+          </div>
+          <div class="transaction-address">To: 0x7FD14a8...62b47d</div>
+        </div>
+      </div>
+      <div class="transaction-value">
+        <div class="text-danger fw-bold">-1,023749 ETH</div>
+        <div class="transaction-usd">≈ $2,491.89</div>
+      </div>
+    </div>
+
+    <!-- Incoming Transaction -->
+    <div class="transaction-item d-flex justify-content-between align-items-start">
+      <div class="d-flex align-items-start">
+        <div class="icon-circle receive">
+          <i class="bi bi-arrow-down"></i>
+        </div>
+        <div class="transaction-details">
+          <div>
+            Transfer <span class="transaction-status"><i class="bi bi-check-circle-fill"></i></span>
+          </div>
+          <div class="transaction-address">From: 0xcEBcbaD...ca14BD</div>
+        </div>
+      </div>
+      <div class="transaction-value">
+        <div class="eth-amount">+0,5125 ETH</div>
+        <div class="transaction-usd">≈ $1,247.46</div>
+      </div>
+    </div>
+
+    <!-- 19 Jan 2025 -->
+    <div class="date-title">19 Jan 2025</div>
+    <div class="transaction-item d-flex justify-content-between align-items-start">
+      <div class="d-flex align-items-start">
+        <div class="icon-circle receive">
+          <i class="bi bi-arrow-down"></i>
+        </div>
+        <div class="transaction-details">
+          <div>
+            Transfer <span class="transaction-status"><i class="bi bi-check-circle-fill"></i></span>
+          </div>
+          <div class="transaction-address">From: 0xcEBcbaD...ca14BD</div>
+        </div>
+      </div>
+      <div class="transaction-value">
+        <div class="eth-amount">+0,51 ETH</div>
+        <div class="transaction-usd">≈ $1,241.38</div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Footer Navigation -->
-  <nav class="bottom-nav d-flex justify-content-around p-2">
-    <a href="#" class="nav-link"><i class="bi bi-upload"></i><br>Send</a>
-    <a href="#" class="nav-link"><i class="bi bi-download"></i><br>Receive</a>
-    <a href="#" class="nav-link"><i class="bi bi-arrow-left-right"></i><br>Swap</a>
-    <a href="#" class="nav-link active"><i class="bi bi-lightning-fill"></i><br>Buy</a>
-    <a href="#" class="nav-link"><i class="bi bi-bank"></i><br>Sell</a>
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav d-flex justify-content-around">
+    <a href="#" class="nav-link">
+      <i class="bi bi-upload d-block mb-1"></i>
+      <span>Send</span>
+    </a>
+    <a href="#" class="nav-link">
+      <i class="bi bi-download d-block mb-1"></i>
+      <span>Receive</span>
+    </a>
+    <a href="#" class="nav-link">
+      <i class="bi bi-arrow-left-right d-block mb-1"></i>
+      <span>Swap</span>
+    </a>
+    <a href="#" class="nav-link active">
+      <i class="bi bi-lightning-fill d-block mb-1"></i>
+      <span>Buy</span>
+    </a>
+    <a href="#" class="nav-link">
+      <i class="bi bi-bank d-block mb-1"></i>
+      <span>Sell</span>
+    </a>
   </nav>
 
 </body>
