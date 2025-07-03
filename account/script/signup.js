@@ -102,7 +102,7 @@ function submitForm() {
     const confirmPin = confirmPin1 + confirmPin2 + confirmPin3 + confirmPin4 ;
     
     // Validation
-    if (pin.length !== 6) {
+    if (pin.length !== 4) {
         alert('Please enter a complete 6-digit PIN');
         return;
     }
@@ -128,7 +128,7 @@ function submitForm() {
     
     setTimeout(() => {
         alert('Wallet created successfully with PIN: ' + pin);
-        // window.location.href = 'wallet-dashboard.html';
+         window.location.href = 'dashboard.html';
     }, 1500);
 }
 

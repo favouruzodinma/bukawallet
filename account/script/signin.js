@@ -35,7 +35,7 @@
      const pin4 = document.getElementById('pin4').value;
      
      // Combine PIN digits
-     const pin = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
+     const pin = pin1 + pin2 + pin3 + pin4 
      
      // Validation
      if (!username) {
