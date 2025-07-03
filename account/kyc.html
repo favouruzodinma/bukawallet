@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KYC Verification</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" />
+
+  <style>
+    :root {
+      --primary: #3375BB;
+      --secondary: #05C0A5;
+      --dark: #0B0E11;
+      --dark-gray: #151A21;
+      --light-gray: #2A3139;
+      --text-light: #FFFFFF;
+      --text-gray: #8B939F;
+      --positive: #05C0A5;
+      --negative: #FF6250;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--text-light);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    .kyc-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .kyc-subtitle {
+      font-size: 14px;
+      color: var(--text-gray);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .form-select {
+      background-color: var(--light-gray);
+      color: var(--text-light);
+      border: 1px solid #444;
+    }
+
+    .form-select:focus {
+      border-color: var(--primary);
+      box-shadow: none;
+    }
+
+    .dz {
+      background-color: var(--light-gray);
+      border: 2px dashed var(--text-gray);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      color: var(--text-gray);
+    }
+
+    .dz-message {
+      font-size: 14px;
+      color: var(--text-gray);
+    }
+
+    .dropzone {
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      border: none;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background-color: #2d6aad;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .form-section {
+      max-width: 500px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+ <!-- Header Navigation -->
+ <nav class="d-flex align-items-center mb-4" style="gap: 10px;">
+    <button onclick="window.location.href='./dashboard.html'" class="btn btn-link text-light p-0" style="font-size: 20px; text-decoration: none;">
+      ←
+    </button>
+    <h6 class="mb-0" style="color: var(--text-light); font-weight: 500;">Back</h6>
+  </nav>
+  <div class="form-section">
+    <div class="kyc-title">KYC Verification</div>
+    <div class="kyc-subtitle">Upload your ID and selfie to verify your account.</div>
+
+    <form id="kycForm">
+      <!-- ID Type Dropdown -->
+      <div class="mb-3">
+        <label for="idType" class="form-label">Select ID Type</label>
+        <select class="form-select" id="idType" required>
+          <option value="">-- Choose ID Type --</option>
+          <option value="passport">Passport</option>
+          <option value="national-id">National ID</option>
+          <option value="driver-license">Driver’s License</option>
+          <option value="voter-card">Voter’s Card</option>
+        </select>
+      </div>
+
+      <!-- Front Upload -->
+      <div class="mb-3">
+        <label>Upload Front of ID</label>
+        <div id="frontDropzone" class="dropzone dz"></div>
+      </div>
+
+      <!-- Back Upload (conditionally shown) -->
+      <div class="mb-3 hidden" id="backSection">
+        <label>Upload Back of ID</label>
+        <div id="backDropzone" class="dropzone dz"></div>
+      </div>
+
+      <!-- Selfie Upload -->
+      <div class="mb-3">
+        <label>Upload Selfie with ID</label>
+        <div id="selfieDropzone" class="dropzone dz"></div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit for Verification</button>
+    </form>
+  </div>
+
+  <!-- JS Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
+
+  <script>
+    Dropzone.autoDiscover = false;
+
+    // Dropzones
+    const frontDropzone = new Dropzone("#frontDropzone", {
+      url: "/upload-front",
+      maxFiles: 1,
+      addRemoveLinks: true,
+      acceptedFiles: "image/*",
+      dictDefaultMessage: "Drop front image or click to upload"
+    });
+
+    const backDropzone = new Dropzone("#backDropzone", {
+      url: "/upload-back",
+      maxFiles: 1,
+      addRemoveLinks: true,
+      acceptedFiles: "image/*",
+      dictDefaultMessage: "Drop back image or click to upload"
+    });
+
+    const selfieDropzone = new Dropzone("#selfieDropzone", {
+      url: "/upload-selfie",
+      maxFiles: 1,
+      addRemoveLinks: true,
+      acceptedFiles: "image/*",
+      dictDefaultMessage: "Drop selfie image or click to upload"
+    });
+
+    // Show/hide back upload based on ID type
+    const idTypeSelect = document.getElementById("idType");
+    const backSection = document.getElementById("backSection");
+
+    idTypeSelect.addEventListener("change", function () {
+      const value = this.value;
+      if (value === "passport") {
+        backSection.classList.add("hidden");
+        backDropzone.removeAllFiles();
+      } else {
+        backSection.classList.remove("hidden");
+      }
+    });
+
+    // Submit
+    document.getElementById("kycForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Submitted for review!");
+      // You can access files from:
+      // frontDropzone.files, backDropzone.files, selfieDropzone.files
+    });
+  </script>
+</body>
+</html>

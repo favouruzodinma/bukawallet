@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ETH Asset Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    :root {
+      --dark: #0B0E11;
+      --gray-dark: #151A21;
+      --gray: #2A3139;
+      --green: #05C0A5;
+      --text-light: #ffffff;
+      --text-muted: #8B939F;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--text-light);
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      background-color: var(--dark);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #1e1e1e;
+      z-index: 1000;
+    }
+
+    .header h6 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .sub-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: -4px;
+    }
+
+    .nav-tabs {
+      border: none;
+      background-color: var(--dark);
+      justify-content: space-around;
+    }
+
+    .nav-tabs .nav-link {
+      color: var(--text-muted);
+      border: none;
+      font-weight: 500;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--green);
+      border-bottom: 2px solid var(--green);
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 25px;
+    }
+
+    .read-more {
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .stats-card {
+      background-color: var(--gray-dark);
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 10px;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 6px 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+    }
+
+    .link-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .link-tags span {
+      background-color: var(--gray);
+      color: var(--green);
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--gray-dark);
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: space-around;
+      padding: 6px 0;
+    }
+
+    .bottom-nav .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .bottom-nav .nav-item i {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .bottom-nav .active {
+      color: var(--dark);
+      background-color: var(--green);
+      padding: 8px 16px;
+      border-radius: 15px;
+    }
+
+    .content {
+      padding: 16px;
+      padding-bottom: 80px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="header">
+    <i class="bi bi-arrow-left fs-5" onclick="history.back()" style="cursor:pointer;"></i>
+    <div>
+      <h6>ETH</h6>
+      <div class="sub-label">COIN | Ethereum</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="holdings-tab">Holdings</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="history-tab">History</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="about-tab">About</button>
+    </li>
+  </ul>
+
+  <!-- Page Content -->
+  <div class="content">
+    <div class="section-title">About ETH</div>
+    <p class="text-muted" style="font-size: 14px;">
+      Open source platform to write and distribute decentral...
+    </p>
+    <div class="read-more">Read more</div>
+
+    <div class="section-title">Stats</div>
+    <div class="stats-card">
+      <div class="stat-item">
+        <div class="stat-label">Market Cap</div>
+        <div>$2.93873737E11</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Circulating Supply</div>
+        <div>120.717.850 ETH</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Total Supply</div>
+        <div>120.717.850 ETH</div>
+      </div>
+    </div>
+
+    <div class="section-title">Links</div>
+    <div class="link-tags">
+      <span>Official website</span>
+      <span>Explorer</span>
+      <span>github</span>
+      <span>x</span>
+      <span>reddit</span>
+      <span>whitepaper</span>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <div class="nav-item">
+      <i class="bi bi-arrow-up-right"></i>
+      <span>Send</span>
+    </div>
+    <div class="nav-item">
+      <i class="bi bi-arrow-down-left"></i>
+      <span>Receive</span>
+    </div>
+    <div class="nav-item">
+      <i class="bi bi-arrow-left-right"></i>
+      <span>Swap</span>
+    </div>
+    <div class="nav-item active">
+      <i class="bi bi-lightning-fill"></i>
+      <span>Buy</span>
+    </div>
+    <div class="nav-item">
+      <i class="bi bi-bank"></i>
+      <span>Sell</span>
+    </div>
+  </div>
+
+</body>
+</html>

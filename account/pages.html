@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #3375BB;
+      --secondary: #05C0A5;
+      --dark: #0B0E11;
+      --dark-gray: #151A21;
+      --text-light: #FFFFFF;
+      --text-gray: #8B939F;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--text-light);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow-y: auto;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: var(--dark);
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid #1c1c1c;
+    }
+
+    .app-header i {
+      font-size: 22px;
+      color: var(--text-light);
+    }
+
+    .app-header h6 {
+      margin: 0;
+      margin-left: 12px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .settings-group {
+      margin-top: 10px;
+      background-color: var(--dark);
+    }
+
+    .settings-item {
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1c1c1c;
+    }
+
+    .icon-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .icon-label i {
+      font-size: 18px;
+      color: var(--text-gray);
+    }
+
+    .form-switch .form-check-input {
+      width: 2.4rem;
+      height: 1.2rem;
+      background-color: #555;
+    }
+
+    .form-check-input:checked {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .form-check-input:focus {
+      box-shadow: none;
+    }
+
+    .scroll-area {
+      padding-bottom: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- App Header -->
+  <div class="app-header">
+    <button class="btn p-0 border-0 bg-transparent" onclick="history.back()">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <h6>Settings</h6>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div class="scroll-area">
+
+    <!-- Settings Group 1 -->
+    <div class="settings-group">
+      
+
+      <div class="settings-item">
+        <div class="icon-label">
+          <i class="bi bi-currency-dollar"></i>
+          <span>Price Alerts</span>
+        </div>
+      </div>
+
+      <div class="settings-item">
+        <div class="icon-label">
+          <i class="bi bi-person-lines-fill"></i>
+          <span>Address Book</span>
+        </div>
+      </div>
+
+      <div class="settings-item">
+        <div class="icon-label">
+          <i class="bi bi-diagram-3"></i>
+          <span>Trust Handles</span>
+        </div>
+      </div>
+
+      <div class="settings-item">
+        <div class="icon-label">
+          <i class="bi bi-qr-code-scan"></i>
+          <span>Scan QR Code</span>
+        </div>
+      </div>
+
+      <div class="settings-item" onclick="window.location.href='./walletconnect.html'">
+        <div class="icon-label">
+          <i class="bi bi-diagram-3-fill"></i>
+          <span>WalletConnect</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Group 2 -->
+    <div class="settings-group">
+      <div class="settings-item">
+        <div class="icon-label">
+          <i class="bi bi-gear"></i>
+          <span>Preferences</span>
+        </div>
+      </div>
+
+      <div class="settings-item">
+        <div class="icon-label">
+          <i class="bi bi-shield-lock-fill"></i>
+          <span>Security</span>
+        </div>
+      </div>
+
+      <div class="settings-item">
+        <div class="icon-label">
+          <i class="bi bi-bell-fill"></i>
+          <span>Notifications</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Group 3 -->
+    <div class="settings-group">
+      <div class="settings-item">
+        <div class="icon-label">
+          <i class="bi bi-question-circle-fill"></i>
+          <span>Help Center</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
