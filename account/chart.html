@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crypto Chart Viewer</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+
+  <style>
+    :root {
+      --primary: #3375bb;
+      --secondary: #05c0a5;
+      --dark: #0b0e11;
+      --dark-gray: #151a21;
+      --light-gray: #2a3139;
+      --text-light: #ffffff;
+      --text-gray: #8b939f;
+      --positive: #05c0a5;
+      --negative: #ff6250;
+    }
+
+    body {
+      background: var(--dark);
+      color: var(--text-light);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .app {
+      max-width: 500px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 300px;
+    }
+
+    #loading {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    .dropdown-select {
+      background: var(--light-gray);
+      border: none;
+      border-radius: 10px;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .btn-action {
+      flex: 1;
+      font-weight: 600;
+      margin: 0 5px;
+    }
+
+    .info-box, .section {
+      background: var(--dark-gray);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-light);
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.95rem;
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      color: var(--text-gray);
+    }
+
+    .link-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .link-tags span {
+      background: var(--primary);
+      color: white;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .link-tags span:hover {
+      background: var(--secondary);
+    }
+
+    .read-more {
+      font-size: 0.85rem;
+      color: var(--primary);
+      margin-top: 5px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 576px) {
+      .chart-container {
+        height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 id="coinTitle">Bitcoin (BTC)</h5>
+      <h5 id="coinPrice">$0.00</h5>
+    </div>
+
+    <div class="d-flex mb-3 gap-2">
+      <select id="coinSelect" class="dropdown-select form-select">
+        <option value="bitcoin">Bitcoin (BTC)</option>
+        <option value="ethereum">Ethereum (ETH)</option>
+        <option value="binancecoin">Binance Coin (BNB)</option>
+        <option value="solana">Solana (SOL)</option>
+        <option value="cardano">Cardano (ADA)</option>
+      </select>
+
+      <select id="timeRange" class="dropdown-select form-select">
+        <option value="1">1D</option>
+        <option value="7">7D</option>
+        <option value="30">1M</option>
+        <option value="90">3M</option>
+      </select>
+    </div>
+
+    <div class="chart-container mb-4">
+      <div id="loading"><i class="fas fa-spinner fa-spin"></i> Loading chart...</div>
+      <canvas id="chartCanvas"></canvas>
+    </div>
+
+    <div class="d-flex mb-3">
+      <button class="btn btn-success btn-action">Buy</button>
+      <button class="btn btn-danger btn-action">Sell</button>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="section">
+      <div class="section-title">Stats</div>
+      <div class="stat-item"><div class="stat-label">24h High</div><div id="high24h">$0.00</div></div>
+      <div class="stat-item"><div class="stat-label">24h Low</div><div id="low24h">$0.00</div></div>
+      <div class="stat-item"><div class="stat-label">Volume (24h)</div><div id="volume24h">$0</div></div>
+      <div class="stat-item"><div class="stat-label">Market Cap</div><div id="marketCap">$0</div></div>
+      <div class="stat-item"><div class="stat-label">Circulating Supply</div><div id="circSupply">-</div></div>
+      <div class="stat-item"><div class="stat-label">Total Supply</div><div id="totalSupply">-</div></div>
+    </div>
+
+    <!-- About Section -->
+    <div class="section">
+      <div class="section-title">About <span id="aboutCoinName">BTC</span></div>
+      <p class="text-light  " id="coinDescription" style="font-size: 14px;">...</p>
+      <div class="read-more" onclick="toggleDescription()">Read more</div>
+    </div>
+
+    <!-- Links Section -->
+    <div class="section">
+      <div class="section-title">Links</div>
+      <div class="link-tags" id="coinLinks"></div>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById("chartCanvas").getContext("2d");
+    let chart, fullDescription = "", isExpanded = false;
+    let currentRequestId = 0;
+
+    function varToRgb(variable) {
+      return getComputedStyle(document.documentElement)
+        .getPropertyValue(variable)
+        .trim();
+    }
+
+    const coinNames = {
+      bitcoin: "Bitcoin (BTC)",
+      ethereum: "Ethereum (ETH)",
+      binancecoin: "Binance Coin (BNB)",
+      solana: "Solana (SOL)",
+      cardano: "Cardano (ADA)"
+    };
+
+    async function renderChart() {
+      const requestId = ++currentRequestId;
+      const loadingEl = document.getElementById("loading");
+      loadingEl.style.display = "block";
+
+      const coin = document.getElementById("coinSelect").value;
+      const days = document.getElementById("timeRange").value;
+
+      try {
+        const [priceRes, chartRes, coinRes] = await Promise.all([
+          fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd`).then(res => res.json()),
+          fetch(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=usd&days=${days}`).then(res => res.json()),
+          fetch(`https://api.coingecko.com/api/v3/coins/${coin}`).then(res => res.json())
+        ]);
+
+        if (requestId !== currentRequestId) return;
+
+        const price = priceRes[coin]?.usd || 0;
+        document.getElementById("coinPrice").textContent = `$${price.toLocaleString()}`;
+        document.getElementById("coinTitle").textContent = coinNames[coin] || coin;
+        document.getElementById("aboutCoinName").textContent = coinRes.symbol.toUpperCase();
+
+        // Stats
+        document.getElementById("high24h").textContent = `$${coinRes.market_data.high_24h.usd.toLocaleString()}`;
+        document.getElementById("low24h").textContent = `$${coinRes.market_data.low_24h.usd.toLocaleString()}`;
+        document.getElementById("volume24h").textContent = `$${coinRes.market_data.total_volume.usd.toLocaleString()}`;
+        document.getElementById("marketCap").textContent = `$${coinRes.market_data.market_cap.usd.toLocaleString()}`;
+        document.getElementById("circSupply").textContent = `${coinRes.market_data.circulating_supply.toLocaleString()} ${coinRes.symbol.toUpperCase()}`;
+        document.getElementById("totalSupply").textContent = `${coinRes.market_data.total_supply?.toLocaleString() || "∞"} ${coinRes.symbol.toUpperCase()}`;
+
+        // Description
+        fullDescription = coinRes.description.en;
+        document.getElementById("coinDescription").innerHTML = fullDescription.slice(0, 120) + "...";
+
+        // Links
+        const links = [];
+        if (coinRes.links.homepage[0]) links.push(`<span onclick="window.open('${coinRes.links.homepage[0]}')">Website</span>`);
+        if (coinRes.links.blockchain_site[0]) links.push(`<span onclick="window.open('${coinRes.links.blockchain_site[0]}')">Explorer</span>`);
+        if (coinRes.links.repos_url.github[0]) links.push(`<span onclick="window.open('${coinRes.links.repos_url.github[0]}')">GitHub</span>`);
+        if (coinRes.links.subreddit_url) links.push(`<span onclick="window.open('${coinRes.links.subreddit_url}')">Reddit</span>`);
+        if (coinRes.links.twitter_screen_name) links.push(`<span onclick="window.open('https://twitter.com/${coinRes.links.twitter_screen_name}')">X</span>`);
+        if (coinRes.links.official_forum_url[0]) links.push(`<span onclick="window.open('${coinRes.links.official_forum_url[0]}')">Forum</span>`);
+        document.getElementById("coinLinks").innerHTML = links.join("");
+        
+        // Chart
+        const data = {
+          labels: chartRes.prices.map(d => new Date(d[0])),
+          datasets: [{
+            label: "Price",
+            data: chartRes.prices.map(d => d[1]),
+            borderColor: varToRgb("--positive"),
+            backgroundColor: "rgba(5,192,165,0.1)",
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0
+          }]
+        };
+
+        const options = {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              type: "time",
+              time: { unit: days <= 1 ? "hour" : "day" },
+              ticks: { color: varToRgb("--text-gray") },
+              grid: { color: "rgba(255,255,255,0.1)" }
+            },
+            y: {
+              ticks: { color: varToRgb("--text-gray") },
+              grid: { color: "rgba(255,255,255,0.1)" }
+            }
+          },
+          plugins: { legend: { display: false } }
+        };
+
+        if (chart) chart.destroy();
+        chart = new Chart(ctx, { type: "line", data, options });
+
+      } catch (err) {
+        console.error("Error:", err);
+        document.getElementById("coinTitle").textContent = "Error loading chart";
+      } finally {
+        loadingEl.style.display = "none";
+      }
+    }
+
+    function toggleDescription() {
+      const descEl = document.getElementById("coinDescription");
+      isExpanded = !isExpanded;
+      descEl.innerHTML = isExpanded ? fullDescription : fullDescription.slice(0, 120) + "...";
+    }
+
+    function debounce(func, delay) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+
+    const debouncedRender = debounce(renderChart, 300);
+    ["coinSelect", "timeRange"].forEach(id => {
+      document.getElementById(id).addEventListener("change", debouncedRender);
+    });
+
+    window.onload = renderChart;
+  </script>
+</body>
+</html>
