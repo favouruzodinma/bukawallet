@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trust Wallet Clone</title>
+    <title>BukaWallet</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
@@ -36,19 +36,19 @@
             </div>
             
             <div class="action-buttons">
-                <button class="action-btn">
+                <button class="action-btn" onclick="window.location.href='./send.html'">
                     <i class="fas fa-arrow-up"></i>
                     <span>Send</span>
                 </button>
-                <button class="action-btn">
+                <button class="action-btn" onclick="window.location.href='./receive.html'">
                     <i class="fas fa-arrow-down"></i>
                     <span>Receive</span>
                 </button>
-                <button class="action-btn">
+                <button class="action-btn" onclick="window.location.href='./swap.html'">
                     <i class="fas fa-exchange-alt"></i>
                     <span>Swap</span>
                 </button>
-                <button class="action-btn">
+                <button class="action-btn" onclick="window.location.href='https://www.paybis.com'">
                     <i class="fas fa-shopping-bag"></i>
                     <span>Buy</span>
                 </button>
@@ -120,104 +120,92 @@
                 <a href="#" class="view-all">View All</a>
             </div>
             
-            <!-- Asset List -->
-            <div class="asset-list">
-                <!-- BTC Asset -->
-                <div class="asset-card" onclick="window.location.href='./coin-page.html'">
-                    <div class="asset-icon btc-color">
-                        <i class="fab fa-btc"></i>
-                    </div>
-                    <div class="asset-info">
-                        <div class="asset-name">
-                            Bitcoin
-                            <span class="asset-symbol">BTC</span>
-                        </div>
-                        <div class="asset-amount">0.2546 BTC</div>
-                    </div>
-                    <div class="asset-value">
-                        <div class="asset-price">$9,842.56</div>
-                        <div class="asset-change positive"><i class="fas fa-caret-up"></i> 5.2%</div>
-                    </div>
-                </div>
-                
-                <!-- ETH Asset -->
-                <div class="asset-card">
-                    <div class="asset-icon eth-color">
-                        <i class="fab fa-ethereum"></i>
-                    </div>
-                    <div class="asset-info">
-                        <div class="asset-name">
-                            Ethereum
-                            <span class="asset-symbol">ETH</span>
-                        </div>
-                        <div class="asset-amount">3.42 ETH</div>
-                    </div>
-                    <div class="asset-value">
-                        <div class="asset-price">$6,128.74</div>
-                        <div class="asset-change positive"><i class="fas fa-caret-up"></i> 2.8%</div>
-                    </div>
-                </div>
-                
-                <!-- BNB Asset -->
-                <div class="asset-card">
-                    <div class="asset-icon bnb-color">
-                        <i class="fab fa-btc"></i>
-                    </div>
-                    <div class="asset-info">
-                        <div class="asset-name">
-                            Binance Coin
-                            <span class="asset-symbol">BNB</span>
-                        </div>
-                        <div class="asset-amount">12.5 BNB</div>
-                    </div>
-                    <div class="asset-value">
-                        <div class="asset-price">$3,875.20</div>
-                        <div class="asset-change negative"><i class="fas fa-caret-down"></i> 1.2%</div>
-                    </div>
-                </div>
-                
-                <!-- USDT Asset -->
-                <div class="asset-card">
-                    <div class="asset-icon usdt-color">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <div class="asset-info">
-                        <div class="asset-name">
-                            Tether
-                            <span class="asset-symbol">USDT</span>
-                        </div>
-                        <div class="asset-amount">1,250 USDT</div>
-                    </div>
-                    <div class="asset-value">
-                        <div class="asset-price">$1,250.00</div>
-                        <div class="asset-change">0.0%</div>
-                    </div>
-                </div>
-            </div>
+       <!-- Asset List -->
+<div class="asset-list">
+    <!-- BTC Asset -->
+    <div class="asset-card" onclick="window.location.href='./coin-page.html'">
+        <div class="asset-icon">
+            <img src="https://www.cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" style="width: 32px; height: 32px;" />
         </div>
-        
+        <div class="asset-info">
+            <div class="asset-name">
+                Bitcoin
+                <span class="asset-symbol">BTC</span>
+            </div>
+            <div class="asset-amount">0.2546 BTC</div>
+        </div>
+        <div class="asset-value">
+            <div class="asset-price">$9,842.56</div>
+            <div class="asset-change positive"><i class="fas fa-caret-up"></i> 5.2%</div>
+        </div>
+    </div>
+
+    <!-- ETH Asset -->
+    <div class="asset-card">
+        <div class="asset-icon">
+            <img src="https://www.cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" style="width: 32px; height: 32px;" />
+        </div>
+        <div class="asset-info">
+            <div class="asset-name">
+                Ethereum
+                <span class="asset-symbol">ETH</span>
+            </div>
+            <div class="asset-amount">3.42 ETH</div>
+        </div>
+        <div class="asset-value">
+            <div class="asset-price">$6,128.74</div>
+            <div class="asset-change positive"><i class="fas fa-caret-up"></i> 2.8%</div>
+        </div>
+    </div>
+
+    <!-- BNB Asset -->
+    <div class="asset-card">
+        <div class="asset-icon">
+            <img src="https://www.cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" style="width: 32px; height: 32px;" />
+        </div>
+        <div class="asset-info">
+            <div class="asset-name">
+                Binance Coin
+                <span class="asset-symbol">BNB</span>
+            </div>
+            <div class="asset-amount">12.5 BNB</div>
+        </div>
+        <div class="asset-value">
+            <div class="asset-price">$3,875.20</div>
+            <div class="asset-change negative"><i class="fas fa-caret-down"></i> 1.2%</div>
+        </div>
+    </div>
+
+    <!-- USDT Asset -->
+    <div class="asset-card">
+        <div class="asset-icon">
+            <img src="https://www.cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT" style="width: 32px; height: 32px;" />
+        </div>
+        <div class="asset-info">
+            <div class="asset-name">
+                Tether
+                <span class="asset-symbol">USDT</span>
+            </div>
+            <div class="asset-amount">1,250 USDT</div>
+        </div>
+        <div class="asset-value">
+            <div class="asset-price">$1,250.00</div>
+            <div class="asset-change">0.0%</div>
+        </div>
+    </div>
+</div>
+
         <!-- NFT Section -->
-        <div class="assets-section mt-4">
-            <div class="section-header">
-                <div class="section-title">NFT Collections</div>
-                <a href="#" class="view-all">View All</a>
-            </div>
-            
-            <div class="d-flex overflow-auto pb-2" style="gap: 12px;">
-                <div class="nft-card" style="min-width: 120px;">
-                    <div class="nft-image rounded-3" style="width: 120px; height: 120px; background-color: var(--light-gray);"></div>
-                    <div class="nft-name mt-2 text-center" style="font-size: 0.75rem;">Bored Ape</div>
-                </div>
-                <div class="nft-card" style="min-width: 120px;">
-                    <div class="nft-image rounded-3" style="width: 120px; height: 120px; background-color: var(--light-gray);"></div>
-                    <div class="nft-name mt-2 text-center" style="font-size: 0.75rem;">CryptoPunk</div>
-                </div>
-                <div class="nft-card" style="min-width: 120px;">
-                    <div class="nft-image rounded-3" style="width: 120px; height: 120px; background-color: var(--light-gray);"></div>
-                    <div class="nft-name mt-2 text-center" style="font-size: 0.75rem;">Azuki</div>
-                </div>
-            </div>
-        </div>
+<div class="assets-section mt-4">
+    <div class="section-header">
+        <div class="section-title">NFT Collections</div>
+        <a href="#" class="view-all">View All</a>
+    </div>
+    
+    <div class="nft-container d-flex overflow-auto pb-2" style="gap: 12px;">
+        <!-- NFTs will be dynamically inserted here -->
+    </div>
+</div>
     </div>
 
     <!-- Bottom Navigation -->
@@ -225,7 +213,7 @@
         <div class="container">
             <div class="d-flex">
                 <div class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="#" class="nav-link active" onclick="window.location.href='./dashboard.html'">
                         <i class="fas fa-wallet"></i>
                         <span>Wallet</span>
                     </a>
@@ -242,7 +230,7 @@
                         <span>Browser</span>
                     </a>
                 </div>
-                <div class="nav-item">
+                <div class="nav-item" onclick="window.location.href='./history.html'">
                     <a href="#" class="nav-link">
                         <i class="fas fa-bell"></i>
                         <span>Activity</span>
@@ -251,7 +239,7 @@
                 <div class="nav-item">
                     <a href="#" class="nav-link" onclick="window.location.href='./profile.html'">
                         <i class="fas fa-user"></i>
-                        <span>Settings</span>
+                        <span>Profile</span>
                     </a>
                 </div>
             </div>
@@ -260,42 +248,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize carousel without auto-cycling
-            const myCarousel = new bootstrap.Carousel('#myCarousel', {
-                interval: false, // Disable auto-cycling
-                wrap: true,
-                touch: true // Enable touch swiping
-            });
-            
-            // Add functionality to close buttons
-            document.querySelectorAll('.close-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const slideIndex = this.getAttribute('data-slide-index');
-                    const carouselItems = document.querySelectorAll('.carousel-item');
-                    const indicators = document.querySelectorAll('.carousel-indicators li');
-                    
-                    // Hide the current slide
-                    carouselItems[slideIndex].style.display = 'none';
-                    indicators[slideIndex].style.display = 'none';
-                    
-                    // Find the next available slide to show
-                    let nextIndex = (parseInt(slideIndex) + 1) % carouselItems.length;
-                    while (nextIndex != slideIndex && carouselItems[nextIndex].style.display === 'none') {
-                        nextIndex = (nextIndex + 1) % carouselItems.length;
-                    }
-                    
-                    // If all slides are hidden, hide the carousel
-                    if (carouselItems[nextIndex].style.display === 'none') {
-                        document.getElementById('myCarousel').style.display = 'none';
-                    } else {
-                        // Show the next available slide
-                        myCarousel.to(nextIndex);
-                    }
-                });
-            });
-        });
-    </script>
+   <script src="./script/dashboard.js"></script>
+    
 </body>
 </html>

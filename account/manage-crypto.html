@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Network Selection</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #05e2e6;
+            --primary-dark: #05c2A5;
+            --secondary: #f7931a;
+            --bg-dark: #0B0E11;
+            --bg-light: #1f2937;
+            --card-bg: #1a2232;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #05C0A5;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+            background-color: var(--bg-dark);
+        }
+
+        .header {
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-dark);
+            z-index: 10;
+            border-bottom: 1px solid #334155;
+        }
+
+        .header-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 0;
+        }
+
+        .search-container {
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        .search-input {
+            background-color: var(--bg-light);
+            border: 1px solid #334155;
+            color: var(--text-light);
+            border-radius: 12px;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            width: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .network-list {
+            padding: 0 1.5rem;
+        }
+
+        .network-category {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 1.5rem 0 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .network-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #334155;
+            cursor: pointer;
+        }
+
+        .network-item:last-child {
+            border-bottom: none;
+        }
+
+        .network-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            overflow: hidden;
+        }
+
+        .network-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .network-details {
+            flex: 1;
+        }
+
+        .network-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .network-chain {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        .network-ticker {
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+
+        /* Custom switch toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+            margin-left: 0.5rem;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #334155;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Network icons - using placeholder colors */
+        .bnb { background-color: #f0b90b; }
+        .eth { background-color: #627eea; }
+        .doge { background-color: #c2a633; }
+        .arb { background-color: #2d374b; }
+        .trx { background-color: #ff060a; }
+        .btc { background-color: #f7931a; }
+        .xrp { background-color: #27a2db; }
+        .fil { background-color: #0090ff; }
+        .twt { background-color: #3375bb; }
+        .poly { background-color: #8247e5; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            
+            <h1 class="header-title">Manage crypto</h1>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search">
+            </div>
+        </div>
+
+        <div class="network-list">
+            <div class="network-category">All Networks</div>
+            
+            <!-- BNB Smart Chain -->
+            <div class="network-item">
+                <div class="network-icon bnb">
+                    <img src="https://www.cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">BNB</span> BNB Smart Chain
+                    </div>
+                    <p class="network-chain">BNB Smart Chain</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Ethereum -->
+            <div class="network-item">
+                <div class="network-icon eth">
+                    <img src="https://www.cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">ETH</span> Ethereum
+                    </div>
+                    <p class="network-chain">Ethereum</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Dogecoin -->
+            <div class="network-item">
+                <div class="network-icon doge">
+                    <img src="https://www.cryptologos.cc/logos/dogecoin-doge-logo.png" alt="DOGE">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">DOGE</span> Dogecoin
+                    </div>
+                    <p class="network-chain">Dogecoin</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Arbitrum -->
+            <div class="network-item">
+                <div class="network-icon arb">
+                    <img src="https://www.cryptologos.cc/logos/arbitrum-arb-logo.png" alt="ARB">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">ARB</span> Arbitrum
+                    </div>
+                    <p class="network-chain">Arbitrum</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Tron -->
+            <div class="network-item">
+                <div class="network-icon trx">
+                    <img src="https://www.cryptologos.cc/logos/tron-trx-logo.png" alt="TRX">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">TRX</span> Tron
+                    </div>
+                    <p class="network-chain">Tron</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Bitcoin -->
+            <div class="network-item">
+                <div class="network-icon btc">
+                    <img src="https://www.cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">BTC</span> Bitcoin
+                    </div>
+                    <p class="network-chain">Bitcoin</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- XRP -->
+            <div class="network-item">
+                <div class="network-icon xrp">
+                    <img src="https://www.cryptologos.cc/logos/xrp-xrp-logo.png" alt="XRP">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">XRP</span> XRP
+                    </div>
+                    <p class="network-chain">XRP</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Filecoin -->
+            <div class="network-item">
+                <div class="network-icon fil">
+                    <img src="https://www.cryptologos.cc/logos/filecoin-fil-logo.png" alt="FIL">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">FIL</span> Filecoin
+                    </div>
+                    <p class="network-chain">Filecoin</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Trust Wallet Token -->
+            <div class="network-item">
+                <div class="network-icon twt">
+                    <img src="https://www.cryptologos.cc/logos/trust-wallet-token-twt-logo.png" alt="TWT">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">TWT</span> Trust Wallet
+                    </div>
+                    <p class="network-chain">BNB Smart Chain</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Polygon -->
+            <div class="network-item">
+                <div class="network-icon poly">
+                    <img src="https://www.cryptologos.cc/logos/polygon-matic-logo.png" alt="MATIC">
+                </div>
+                <div class="network-details">
+                    <div class="network-name">
+                        <span class="network-ticker">POL</span> Polygon
+                    </div>
+                    <p class="network-chain">Polygon</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple search functionality
+        document.querySelector('.search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const networkItems = document.querySelectorAll('.network-item');
+            
+            networkItems.forEach(item => {
+                const networkName = item.querySelector('.network-name').textContent.toLowerCase();
+                if (networkName.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Network toggle functionality
+        document.querySelectorAll('.switch input').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const networkName = this.closest('.network-item').querySelector('.network-name').textContent;
+                const isActive = this.checked;
+                
+                console.log(`${networkName} ${isActive ? 'activated' : 'deactivated'}`);
+                
+                // In a real app, this would enable/disable the network
+                if (isActive) {
+                    // Enable network logic
+                } else {
+                    // Disable network logic
+                }
+            });
+        });
+    </script>
+</body>
+</html>

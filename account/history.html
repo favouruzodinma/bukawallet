@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Transaction History</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --primary: #3375bb;
+        --secondary: #05c0a5;
+        --dark: #0b0e11;
+        --dark-gray: #151a21;
+        --light-gray: #2a3139;
+        --text-light: #ffffff;
+        --text-gray: #8b939f;
+        --positive: #05c0a5;
+        --negative: #ff6250;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      body {
+        background-color: var(--dark);
+        color: var(--text-light);
+        font-family: "Segoe UI", sans-serif;
+        min-height: 100vh;
+      }
+
+      .app-container {
+        max-width: 480px;
+        margin: auto;
+        background: var(--dark);
+      }
+
+      .header {
+        padding: 1rem 1.5rem;
+        background-color: var(--dark);
+        border-bottom: 1px solid var(--light-gray);
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .header-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      .filter-tabs {
+        display: flex;
+        gap: 8px;
+        padding: 1rem 1.5rem;
+        overflow-x: auto;
+      }
+
+      .filter-tab {
+        background: var(--light-gray);
+        border: none;
+        border-radius: 999px;
+        color: var(--text-gray);
+        padding: 6px 14px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .filter-tab.active {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .transaction-list {
+        padding: 0 1rem 2rem;
+      }
+
+      .transaction-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        margin-bottom: 12px;
+        background: var(--dark-gray);
+        border-radius: 12px;
+        box-shadow: var(--card-shadow);
+      }
+
+      .transaction-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .transaction-icon.send {
+        background-color: rgba(255, 98, 80, 0.15);
+        color: var(--negative);
+      }
+
+      .transaction-icon.receive {
+        background-color: rgba(5, 192, 165, 0.15);
+        color: var(--positive);
+      }
+
+      .transaction-details {
+        flex: 1;
+      }
+
+      .transaction-title {
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .transaction-meta {
+        font-size: 0.75rem;
+        color: var(--text-gray);
+      }
+
+      .transaction-amount {
+        font-weight: 600;
+        text-align: right;
+        font-size: 0.95rem;
+      }
+
+      .transaction-amount.receive {
+        color: var(--positive);
+      }
+
+      .transaction-amount.send {
+        color: var(--negative);
+      }
+
+      .refresh-control {
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .refresh-btn {
+        border: none;
+        background: none;
+        color: var(--primary);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: var(--text-gray);
+        padding: 3rem 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <div class="header">
+        <button class="back-btn" id="backBtn" onclick="window.location.href='./dashboard.html'">
+            <i class="fas fa-arrow-left" ></i>
+          </button>
+        <h1 class="header-title">Transaction History</h1>
+        <button class="btn btn-outline-light btn-sm">Export</button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="filter-tabs">
+        <button class="filter-tab active">All</button>
+        <button class="filter-tab">Sent</button>
+        <button class="filter-tab">Received</button>
+        <!-- <button class="filter-tab">Swaps</button> -->
+        <button class="filter-tab">Failed</button>
+      </div>
+
+      <!-- Transaction List -->
+      <div class="transaction-list" id="transactionList"></div>
+
+      <!-- Refresh -->
+      <div class="refresh-control">
+        <button class="refresh-btn" id="refreshBtn">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- Bootstrap & JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const transactions = [
+        {
+          type: "receive",
+          title: "Received USDT",
+          from: "0x1f9...3d4f",
+          amount: "150 USDT",
+          value: "$150.00",
+          time: "2 mins ago",
+          status: "completed",
+        },
+        {
+          type: "send",
+          title: "Sent BTC",
+          to: "0x8a2...9e1b",
+          amount: "0.015 BTC",
+          value: "$525.75",
+          time: "1 hour ago",
+          status: "completed",
+        },
+        {
+          type: "receive",
+          title: "Received ETH",
+          from: "0x4c7...2a9d",
+          amount: "0.3 ETH",
+          value: "$622.40",
+          time: "3 hours ago",
+          status: "completed",
+        },
+        {
+          type: "send",
+          title: "Sent BNB",
+          to: "0x3e5...7c2f",
+          amount: "1.2 BNB",
+          value: "$312.00",
+          time: "1 day ago",
+          status: "completed",
+        },
+        {
+          type: "send",
+          title: "Sent SOL",
+          to: "0x9b1...4e3a",
+          amount: "5 SOL",
+          value: "$475.00",
+          time: "2 days ago",
+          status: "failed",
+        },
+      ];
+
+      function renderTransactions(filter = "all") {
+        const container = document.getElementById("transactionList");
+        container.innerHTML = "";
+
+        const filtered =
+          filter === "all"
+            ? transactions
+            : transactions.filter((t) => {
+                if (filter === "sent") return t.type === "send";
+                if (filter === "received") return t.type === "receive";
+                if (filter === "failed") return t.status === "failed";
+                return true;
+              });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-file-alt fa-2x mb-3"></i>
+          <p>No ${filter} transactions found.</p>
+        </div>
+      `;
+          return;
+        }
+
+        filtered.forEach((tx) => {
+          const item = document.createElement("div");
+          item.className = "transaction-item";
+          item.style.cursor = "pointer";
+          item.onclick = () => (window.location.href = "receipt.html");
+          item.innerHTML = `
+  <div class="transaction-icon ${tx.type}">
+    <i class="fas fa-arrow-${tx.type === "send" ? "up" : "down"}"></i>
+  </div>
+  <div class="transaction-details">
+    <div class="transaction-title">${tx.title}</div>
+    <div class="transaction-meta">
+      ${tx.type === "send" ? "To" : "From"}: ${tx.to || tx.from} • ${tx.time}
+      ${
+        tx.status === "failed"
+          ? `<span class="text-danger"> • Failed</span>`
+          : ""
+      }
+    </div>
+  </div>
+  <div class="transaction-amount ${tx.type}">
+    ${tx.type === "send" ? "-" : "+"}${tx.amount}
+    <div style="font-size: 0.75rem; color: var(--text-gray);">${tx.value}</div>
+  </div>
+`;
+          container.appendChild(item);
+        });
+      }
+
+      // Tab Click Events
+      document.querySelectorAll(".filter-tab").forEach((tab) => {
+        tab.addEventListener("click", function () {
+          document
+            .querySelectorAll(".filter-tab")
+            .forEach((t) => t.classList.remove("active"));
+          this.classList.add("active");
+          const label = this.textContent.toLowerCase();
+          const filter =
+            label === "sent"
+              ? "sent"
+              : label === "received"
+              ? "received"
+              : label === "failed"
+              ? "failed"
+              : "all";
+          renderTransactions(filter);
+        });
+      });
+
+      // Refresh
+      document.getElementById("refreshBtn").addEventListener("click", () => {
+        const icon = document.querySelector("#refreshBtn i");
+        icon.classList.add("fa-spin");
+        setTimeout(() => icon.classList.remove("fa-spin"), 800);
+        renderTransactions(
+          document.querySelector(".filter-tab.active").textContent.toLowerCase()
+        );
+      });
+
+      // On Load
+      document.addEventListener("DOMContentLoaded", () => {
+        renderTransactions();
+      });
+    </script>
+  </body>
+</html>

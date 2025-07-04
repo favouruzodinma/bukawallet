@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transaction Receipt</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #05C0A5;
+      --dark: #0B0E11;
+      --gray-dark: #151A21;
+      --gray: #2A3139;
+      --light: #ffffff;
+      --text-muted: #8B939F;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--light);
+      font-family: 'Segoe UI', sans-serif;
+      padding-bottom: 60px;
+    }
+
+    .header {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      background-color: var(--dark);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header h6 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 auto;
+    }
+
+    .receipt-box {
+      background-color: var(--gray-dark);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px;
+    }
+
+    .receipt-status {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .receipt-status .icon {
+      font-size: 40px;
+      color: var(--primary);
+    }
+
+    .receipt-status h4 {
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .receipt-amount {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    .receipt-coin {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .receipt-detail {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0;
+      font-size: 14px;
+    }
+
+    .copy-btn {
+      color: var(--primary);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .footer-note {
+      font-size: 13px;
+      text-align: center;
+      color: var(--text-muted);
+      padding: 10px 20px;
+    }
+
+    .done-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background-color: var(--primary);
+      color: #000;
+      font-weight: bold;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .divider {
+      height: 1px;
+      background-color: var(--gray);
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <button class="btn text-light p-0" onclick="history.back()"><i class="bi bi-arrow-left"></i></button>
+  <h6>Receipt</h6>
+</div>
+
+<!-- Receipt Container -->
+<div class="receipt-box">
+  <div class="receipt-status">
+    <div class="icon"><i class="bi bi-check-circle-fill"></i></div>
+    <h4>Transaction Successful</h4>
+  </div>
+
+  <div class="receipt-amount">0.25 ETH</div>
+  <div class="receipt-coin">Ethereum Network</div>
+
+  <div class="divider"></div>
+
+  <div class="receipt-detail">
+    <span>To</span>
+    <span class="text-end text-break">0xA1B2...F89C <span class="copy-btn" onclick="copyToClipboard('0xA1B2C3D4F89C')">Copy</span></span>
+  </div>
+
+  <div class="receipt-detail">
+    <span>Date</span>
+    <span>Jul 4, 2025 15:32</span>
+  </div>
+
+  <div class="receipt-detail">
+    <span>Network Fee</span>
+    <span>$0.75</span>
+  </div>
+
+  <div class="receipt-detail">
+    <span>Status</span>
+    <span class="text-success">Confirmed</span>
+  </div>
+
+  <div class="receipt-detail">
+    <span>Transaction Hash</span>
+    <span class="text-break text-end">
+      0xa9f3...bb78 <span class="copy-btn" onclick="copyToClipboard('0xa9f3e7a5bb78')">Copy</span>
+    </span>
+  </div>
+</div>
+
+<!-- Note -->
+<div class="footer-note">
+  This receipt confirms your transaction on the Ethereum blockchain.
+</div>
+
+<!-- Done Button -->
+<button class="done-btn" onclick="history.back()">Done</button>
+
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied to clipboard!');
+    });
+  }
+</script>
+
+</body>
+</html>

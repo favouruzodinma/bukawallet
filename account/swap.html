@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swap Crypto</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #05C0A5;
+      --dark: #0B0E11;
+      --gray-dark: #151A21;
+      --gray: #2A3139;
+      --light: #ffffff;
+      --text-muted: #8B939F;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--light);
+      font-family: 'Segoe UI', sans-serif;
+      padding-bottom: 100px;
+    }
+
+    .header {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      background-color: var(--dark);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header h6 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 auto;
+    }
+
+    .swap-card {
+      background-color: var(--gray-dark);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 16px;
+    }
+
+    .token-select {
+      background-color: var(--gray);
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--light);
+      cursor: pointer;
+    }
+
+    .token-select img {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .amount-input {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--light);
+      width: 100%;
+      outline: none;
+    }
+
+    .small-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .swap-divider {
+      text-align: center;
+      margin: -12px 0 12px;
+    }
+
+    .swap-divider i {
+      font-size: 24px;
+      color: var(--primary);
+    }
+
+    .swap-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 16px;
+      right: 16px;
+      background-color: var(--primary);
+      color: #000;
+      font-weight: bold;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .modal-content {
+      background-color: var(--dark);
+      color: var(--light);
+    }
+
+    .coin-item {
+      padding: 10px 16px;
+      border-bottom: 1px solid #1e1e1e;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .coin-item img {
+      width: 28px;
+      height: 28px;
+      margin-right: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <button class="btn text-light p-0" onclick="history.back()"><i class="bi bi-arrow-left"></i></button>
+  <h6>Swap</h6>
+</div>
+
+<!-- Swap FROM -->
+<div class="swap-card">
+  <div class="mb-2 small-text">From</div>
+  <div class="token-select" data-type="from" data-bs-toggle="modal" data-bs-target="#tokenModal">
+    <div class="d-flex align-items-center" id="fromToken">
+      <img src="https://www.cryptologos.cc/logos/ethereum-eth-logo.png" />
+      <span>ETH</span>
+    </div>
+    <i class="bi bi-chevron-down"></i>
+  </div>
+  <input type="number" class="amount-input" placeholder="0.00" />
+  <div class="small-text mt-1">Balance: 0.2534 ETH</div>
+</div>
+
+<!-- Divider -->
+<div class="swap-divider"><i class="bi bi-arrow-down-up"></i></div>
+
+<!-- Swap TO -->
+<div class="swap-card">
+  <div class="mb-2 small-text">To</div>
+  <div class="token-select" data-type="to" data-bs-toggle="modal" data-bs-target="#tokenModal">
+    <div class="d-flex align-items-center" id="toToken">
+      <img src="https://www.cryptologos.cc/logos/tether-usdt-logo.png" />
+      <span>USDT</span>
+    </div>
+    <i class="bi bi-chevron-down"></i>
+  </div>
+  <input type="number" class="amount-input" placeholder="0.00" disabled />
+  <div class="small-text mt-1">Est. Rate: 1 ETH = 3,000 USDT</div>
+</div>
+
+<!-- Swap Button -->
+<button class="swap-btn">Swap</button>
+
+<!-- Modal: Token Selector -->
+<div class="modal fade" id="tokenModal" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">Select Token</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="coin-item" data-symbol="ETH" data-img="https://www.cryptologos.cc/logos/ethereum-eth-logo.png">
+          <img src="https://www.cryptologos.cc/logos/ethereum-eth-logo.png" />
+          Ethereum (ETH)
+        </div>
+        <div class="coin-item" data-symbol="USDT" data-img="https://www.cryptologos.cc/logos/tether-usdt-logo.png">
+          <img src="https://www.cryptologos.cc/logos/tether-usdt-logo.png" />
+          Tether (USDT)
+        </div>
+        <div class="coin-item" data-symbol="BTC" data-img="https://www.cryptologos.cc/logos/bitcoin-btc-logo.png">
+          <img src="https://www.cryptologos.cc/logos/bitcoin-btc-logo.png" />
+          Bitcoin (BTC)
+        </div>
+        <div class="coin-item" data-symbol="BNB" data-img="https://www.cryptologos.cc/logos/bnb-bnb-logo.png">
+          <img src="https://www.cryptologos.cc/logos/bnb-bnb-logo.png" />
+          Binance Coin (BNB)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let currentSelectType = 'from';
+
+  document.querySelectorAll('.token-select').forEach(el => {
+    el.addEventListener('click', () => {
+      currentSelectType = el.getAttribute('data-type');
+    });
+  });
+
+  document.querySelectorAll('.coin-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const symbol = item.getAttribute('data-symbol');
+      const img = item.getAttribute('data-img');
+      const html = `<img src="${img}" /><span>${symbol}</span>`;
+
+      document.getElementById(currentSelectType + 'Token').innerHTML = html;
+      const modal = bootstrap.Modal.getInstance(document.getElementById('tokenModal'));
+      modal.hide();
+    });
+  });
+</script>
+
+</body>
+</html>

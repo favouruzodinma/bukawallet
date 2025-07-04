@@ -1,11 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Back button functionality
-    document.getElementById('backBtn').addEventListener('click', function() {
-      console.log('Navigating back');
-      // In a real app: window.history.back() or navigation logic
-      alert('Navigating back - would go to previous screen in real app');
-    });
-
+   
     // Copy wallet address
     document.getElementById('copyWalletBtn').addEventListener('click', function() {
       const walletAddress = document.getElementById('walletAddress').textContent;
