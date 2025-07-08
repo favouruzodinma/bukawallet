@@ -1,10 +1,8 @@
-   // Form navigation
-   function nextStep(currentStep) {
+// Form navigation
+function nextStep(currentStep) {
     if (validateStep(currentStep)) {
         document.getElementById(`step${currentStep}-form`).classList.remove('active');
         document.getElementById(`step${currentStep+1}-form`).classList.add('active');
-        
-        // Update progress indicators
         document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
         document.getElementById(`step${currentStep+1}-indicator`).classList.add('active');
     }
@@ -13,152 +11,161 @@
 function prevStep(currentStep) {
     document.getElementById(`step${currentStep}-form`).classList.remove('active');
     document.getElementById(`step${currentStep-1}-form`).classList.add('active');
-    
-    // Update progress indicators
     document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
     document.getElementById(`step${currentStep-1}-indicator`).classList.add('active');
 }
 
 // Form validation
 function validateStep(step) {
-    let isValid = true;
-    
     if (step === 1) {
-        const fullName = document.getElementById('fullName').value;
-        const email = document.getElementById('email').value;
-        
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
         if (!fullName) {
             alert('Please enter your full name');
-            isValid = false;
+            return false;
         }
-        
-        if (!email || !email.includes('@')) {
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             alert('Please enter a valid email address');
-            isValid = false;
+            return false;
         }
-    }
-    else if (step === 2) {
+    } else if (step === 2) {
         const country = document.getElementById('country').value;
         const state = document.getElementById('state').value;
-        const phone = document.getElementById('phone').value;
-        
+        const phone = document.getElementById('phone').value.trim();
         if (!country) {
             alert('Please select your country');
-            isValid = false;
+            return false;
         }
-        
-        if (!state) {
+        if (!state && stateSelect.options.length > 1) { // Skip if no states available
             alert('Please select your state/region');
-            isValid = false;
+            return false;
         }
-        
-        if (!phone || phone.length < 8) {
-            alert('Please enter a valid phone number');
-            isValid = false;
+        if (!phone || !/^\d{8,15}$/.test(phone)) {
+            alert('Please enter a valid phone number (8-15 digits)');
+            return false;
         }
     }
-    
-    return isValid;
+    return true;
 }
 
 // PIN input handling
 document.querySelectorAll('.pin-input').forEach((input, index, inputs) => {
-    // Auto-focus next input when a digit is entered
-    input.addEventListener('input', function() {
-        if (this.value.length === 1) {
-            if (index < inputs.length - 1) {
-                inputs[index + 1].focus();
-            }
+    input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
         }
     });
-    
-    // Handle backspace to move to previous input
-    input.addEventListener('keydown', function(e) {
-        if (e.key === 'Backspace' && this.value.length === 0) {
-            if (index > 0) {
-                inputs[index - 1].focus();
-            }
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && e.target.value.length === 0 && index > 0) {
+            inputs[index - 1].focus();
         }
     });
 });
 
 // Form submission
 function submitForm() {
-    // Get PIN values
-    const pin1 = document.getElementById('pin1').value;
-    const pin2 = document.getElementById('pin2').value;
-    const pin3 = document.getElementById('pin3').value;
-    const pin4 = document.getElementById('pin4').value;
-    
-    const confirmPin1 = document.getElementById('confirmPin1').value;
-    const confirmPin2 = document.getElementById('confirmPin2').value;
-    const confirmPin3 = document.getElementById('confirmPin3').value;
-    const confirmPin4 = document.getElementById('confirmPin4').value;
-    
+    const pin = Array.from({ length: 4 }, (_, i) => 
+        document.getElementById(`pin${i+1}`).value).join('');
+    const confirmPin = Array.from({ length: 4 }, (_, i) => 
+        document.getElementById(`confirmPin${i+1}`).value).join('');
     const terms = document.getElementById('terms').checked;
-    
-    // Combine PIN digits
-    const pin = pin1 + pin2 + pin3 + pin4 ;
-    const confirmPin = confirmPin1 + confirmPin2 + confirmPin3 + confirmPin4 ;
-    
-    // Validation
-    if (pin.length !== 4) {
-        alert('Please enter a complete 6-digit PIN');
+
+    if (pin.length !== 4 || confirmPin.length !== 4) {
+        alert('Please enter a complete 4-digit PIN');
         return;
     }
-    
-    if (confirmPin.length !== 4) {
-        alert('Please confirm your 4-digit PIN');
-        return;
-    }
-    
     if (pin !== confirmPin) {
         alert('PINs do not match');
         return;
     }
-    
     if (!terms) {
         alert('You must agree to the terms and conditions');
         return;
     }
-    
-    // Simulate form processing
+
     document.getElementById('submitBtn').innerHTML = 'Creating Wallet...';
     document.getElementById('submitBtn').disabled = true;
-    
     setTimeout(() => {
-        alert('Wallet created successfully with PIN: ' + pin);
-         window.location.href = 'dashboard.html';
+        alert('Wallet created successfully!');
+        window.location.href = 'dashboard.html';
     }, 1500);
 }
 
-// Update phone prefix based on country
-document.getElementById('country').addEventListener('change', function() {
-    const country = this.value;
-    const prefixElement = document.getElementById('phonePrefix');
-    
-    const prefixes = {
-        'US': '+1',
-        'UK': '+44',
-        'CA': '+1',
-        'AU': '+61'
-    };
-    
-    prefixElement.textContent = prefixes[country] || '+1';
-    
-    // Update states based on country
-    const stateSelect = document.getElementById('state');
-    stateSelect.innerHTML = '<option value="" disabled selected>Select your state</option>';
-    
-    if (country === 'US') {
-        const usStates = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado'];
-        usStates.forEach(state => {
-            stateSelect.innerHTML += `<option value="${state}">${state}</option>`;
+// Country/State Data
+const countrySelect = document.getElementById('country');
+const stateSelect = document.getElementById('state');
+const phonePrefix = document.getElementById('phonePrefix');
+let countriesData = {};
+
+// Fetch countries
+async function fetchCountries() {
+    try {
+        const response = await fetch('https://restcountries.com/v3.1/all');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const countries = await response.json();
+
+        console.log(countries);
+
+        countrySelect.innerHTML = '<option value="" disabled selected>Select your country</option>';
+        countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
+
+        countries.forEach(country => {
+            const countryCode = country.cca2;
+            const phoneCode = (country.idd.root || '') + (country.idd.suffixes?.[0] || '');
+            countriesData[countryCode] = { phoneCode };
+
+            const option = document.createElement('option');
+            option.value = countryCode;
+            option.textContent = country.name.common;
+            countrySelect.appendChild(option);
         });
-    } else if (country === 'UK') {
-        const ukRegions = ['England', 'Scotland', 'Wales', 'Northern Ireland'];
-        ukRegions.forEach(region => {
-            stateSelect.innerHTML += `<option value="${region}">${region}</option>`;
-        });
+
+        countrySelect.disabled = false;
+    } catch (error) {
+        console.error('Failed to fetch countries:', error);
+        countrySelect.innerHTML = '<option value="" disabled selected>Error loading countries</option>';
     }
+}
+
+// Fetch states (GeoNames)
+async function fetchStates(countryCode) {
+    const username = 'YOUR_GEONAMES_USERNAME'; // Replace this!
+    const apiUrl = `https://secure.geonames.org/childrenJSON?geonameId=1&country=${countryCode}&username=${username}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('GeoNames API failed');
+        const data = await response.json();
+
+        stateSelect.innerHTML = '<option value="" disabled selected>Select your state</option>';
+        if (data.geonames?.length > 0) {
+            data.geonames.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state.adminName1 || state.name;
+                option.textContent = state.adminName1 || state.name;
+                stateSelect.appendChild(option);
+            });
+        } else {
+            stateSelect.innerHTML = '<option value="" disabled selected>No states available</option>';
+        }
+        stateSelect.disabled = false;
+    } catch (error) {
+        console.error('Failed to fetch states:', error);
+        stateSelect.innerHTML = '<option value="" disabled selected>Error loading states</option>';
+        stateSelect.disabled = false; // Allow form submission
+    }
+}
+
+// Event listeners
+countrySelect.addEventListener('change', function() {
+    const countryCode = this.value;
+    if (!countryCode) return;
+
+    phonePrefix.textContent = countriesData[countryCode]?.phoneCode || '+__';
+    stateSelect.innerHTML = '<option value="" disabled selected>Loading states...</option>';
+    stateSelect.disabled = true;
+    fetchStates(countryCode);
 });
+
+// Initialize
+fetchCountries();
