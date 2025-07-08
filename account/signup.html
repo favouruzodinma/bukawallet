@@ -42,23 +42,19 @@
             <div class="input-field">
                 <label class="input-label">Country</label>
                 <select class="input-control" id="country" required>
-                    <option value="" disabled selected>Select your country</option>
-                    <option value="US">United States</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="CA">Canada</option>
-                    <option value="AU">Australia</option>
+                    <option value="" disabled selected>Loading countries...</option>
                 </select>
             </div>
             <div class="input-field">
                 <label class="input-label">State/Region</label>
-                <select class="input-control" id="state" required>
-                    <option value="" disabled selected>Select your state</option>
+                <select class="input-control" id="state" required disabled>
+                    <option value="" disabled selected>Select country first</option>
                 </select>
             </div>
             <div class="input-field">
                 <label class="input-label">Phone Number</label>
                 <div class="phone-input">
-                    <div class="phone-prefix" id="phonePrefix">+1</div>
+                    <div class="phone-prefix" id="phonePrefix">+__</div>
                     <input type="tel" class="input-control phone-number" id="phone" placeholder="Phone number" required>
                 </div>
             </div>
